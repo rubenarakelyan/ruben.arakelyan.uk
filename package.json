@@ -1,0 +1,21 @@
+{
+  "name": "rubenarakelyan",
+  "version": "1.0.0",
+  "description": "Ruben Arakelyan's personal website",
+  "private": true,
+  "scripts": {
+    "build": "npm run clean && npm run scss && eleventy",
+    "clean": "rm -rf dist/*",
+    "scss": "node-sass --output-style compressed -o dist/css src/_scss",
+    "serve": "eleventy --serve",
+    "start": "run-p scss serve watch:css",
+    "watch:css": "onchange 'src/_scss' -- npm run scss"
+  },
+  "author": "Ruben Arakelyan",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.0.2"
+  }
+}

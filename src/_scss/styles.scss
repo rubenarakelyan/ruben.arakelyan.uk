@@ -1,0 +1,146 @@
+$gutter: 6rem;
+
+body {
+  display: grid;
+  grid: ". header ." auto ". main ." auto "footer footer footer" 4rem / 0.3fr 1fr 0.3fr;
+  row-gap: $gutter;
+  margin-top: 2rem;
+  background: #fff;
+  color: #343332;
+  font-family: "Whitney SSm A", "Whitney SSm B";
+  font-style: normal;
+  font-weight: 400;
+}
+
+header {
+  grid-area: header;
+  display: grid;
+  grid: "logo nav" auto / 0.2fr 1fr;
+}
+
+.logo {
+  grid-area: logo;
+}
+
+nav {
+  grid-area: nav;
+  align-self: center;
+  text-align: right;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 0.5rem;
+    line-height: 2.5rem;
+
+    &:last {
+      margin-right: 0;
+    }
+  }
+
+  a:link, a:visited, a:hover, a:active {
+    color: #acacac;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  a:hover, a:active, a:link.current, a:visited.current {
+    text-decoration: underline solid #acacac 4px;
+    text-underline-offset: 10px;
+  }
+}
+
+main {
+  grid-area: main;
+  display: grid;
+  grid: "content sidebar" auto / 1fr 0.3fr;
+  font-size: 1.5rem;
+
+  section {
+    margin-bottom: $gutter;
+  }
+}
+
+.content {
+  grid-area: content;
+}
+
+.page-heading {
+  margin-bottom: $gutter;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  justify-self: right;
+}
+
+footer {
+  grid-area: footer;
+  display: grid;
+  grid: ". bio bio ." auto / 1fr 1fr 1fr 1fr;
+
+  section {
+    grid-area: bio;
+    padding: 2rem 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Operator SSm A", "Operator SSm B";
+  font-style: normal;
+  font-weight: 400;
+}
+
+a:link, a:visited {
+  color: #1d78bd;
+}
+
+.avatar img {
+  border-radius: 50%;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
+
+@media only screen and (max-width: 767px) {
+  header {
+    grid: "logo" auto "nav" auto / 1fr;
+    row-gap: 2rem;
+    text-align: center;
+  }
+
+  nav {
+    text-align: center;
+  }
+
+  main {
+    grid: "content" auto "sidebar" auto / 1fr;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: #343332;
+    color: #fff;
+  }
+
+  .logo svg path {
+    fill: #fff;
+  }
+}
