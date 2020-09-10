@@ -118,6 +118,7 @@ a:link, a:visited {
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {}
 
+/* Breakpoint for mobile layout */
 @media only screen and (max-width: 767px) {
   header {
     grid: "logo" auto "nav" auto / 1fr;
@@ -134,7 +135,8 @@ a:link, a:visited {
   }
 }
 
-@media (prefers-color-scheme: light) {
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
   body {
     background: #343332;
     color: #fff;
