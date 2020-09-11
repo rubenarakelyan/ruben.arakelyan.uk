@@ -82,6 +82,14 @@ main {
   justify-self: right;
 }
 
+.avatar img {
+  border-radius: 50%;
+
+  &:hover {
+    animation: rotate 1s linear;
+  }
+}
+
 footer {
   grid-area: footer;
   display: grid;
@@ -101,10 +109,6 @@ h1, h2, h3, h4, h5, h6 {
 
 a:link, a:visited {
   color: #1d78bd;
-}
-
-.avatar img {
-  border-radius: 50%;
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -149,4 +153,9 @@ a:link, a:visited {
   .logo svg path {
     fill: #fff;
   }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
