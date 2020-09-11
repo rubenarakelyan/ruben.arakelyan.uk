@@ -60,7 +60,7 @@ main {
   grid: "content sidebar" auto / 1fr 0.3fr;
   font-size: 1.5rem;
 
-  section {
+  section section {
     margin-bottom: $gutter;
 
     &:last {
