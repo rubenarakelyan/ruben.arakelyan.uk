@@ -84,9 +84,10 @@ main {
 
 .avatar img {
   border-radius: 50%;
+  transition: transform 1s;
 
   &:hover {
-    animation: rotate 1s linear;
+    transform: scale(1.5);
   }
 }
 
@@ -153,9 +154,4 @@ a:link, a:visited {
   .logo svg path {
     fill: #fff;
   }
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
