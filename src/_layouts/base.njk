@@ -28,7 +28,10 @@
       <nav>
         <ul>
           <li>
-            <a href="/" {% if page.url == "/" %} class="current" {% endif %}>About me</a>
+            <a href="/" {% if page.url == "/" %} class="current" {% endif %}>Home</a>
+          </li>
+          <li>
+            <a href="/about/" {% if page.url == "/about/" %} class="current" {% endif %}>About me</a>
           </li>
           <li>
             <a href="/now/" {% if page.url == "/now/" %} class="current" {% endif %}>What I’m doing</a>
