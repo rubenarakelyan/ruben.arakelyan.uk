@@ -1,0 +1,126 @@
+[build]
+  publish = "dist/"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/contact"
+  to = "/#get-in-touch"
+
+[[redirects]]
+  from = "/contact/"
+  to = "/#get-in-touch"
+
+[[redirects]]
+  from = "/colophon"
+  to = "/uses/"
+
+[[redirects]]
+  from = "/colophon/"
+  to = "/uses/"
+
+[[redirects]]
+  from = "/setup"
+  to = "/uses/"
+
+[[redirects]]
+  from = "/setup/"
+  to = "/uses/"
+
+[[redirects]]
+  from = "/conversational"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/conversational/"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/conversational/2014/5/19/changing-my-passwords"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/conversational/2014/5/7/leaving-facebook-for-good"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/conversational/2014/5/1/using-an-ipad-as-my-only-computer"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/conversational/2014/4/23/staying-a-geek"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/conversational/2014/4/17/the-challenges-of-a-semi-graduate"
+  to = "https://web.archive.org/web/20140602002923/http://ra.me.uk/conversational/"
+
+[[redirects]]
+  from = "/2016/06/26/progression.html"
+  to = "https://web.archive.org/web/20180903172238/http://ruben.am/2016/06/26/progression.html"
+
+[[redirects]]
+  from = "/2016/07/10/my-first-week-at-gds.html"
+  to = "https://web.archive.org/web/20180903170213/http://ruben.am/2016/07/10/my-first-week-at-gds.html"
+
+[[redirects]]
+  from = "/2016/07/18/two-weeks-in.html"
+  to = "https://web.archive.org/web/20180903200721/http://ruben.am/2016/07/18/two-weeks-in.html"
+
+[[redirects]]
+  from = "/2016/07/24/i-did-this.html"
+  to = "https://web.archive.org/web/20180903190106/http://ruben.am/2016/07/24/i-did-this.html"
+
+[[redirects]]
+  from = "/2016/08/07/much-happenings.html"
+  to = "https://web.archive.org/web/20180903175538/http://ruben.am/2016/08/07/much-happenings.html"
+
+[[redirects]]
+  from = "/2016/09/04/knowing-its-all-fine.html"
+  to = "https://web.archive.org/web/20180903202135/http://ruben.am/2016/09/04/knowing-its-all-fine.html"
+
+[[redirects]]
+  from = "/2016/09/25/supporting-users-as-a-developer.html"
+  to = "https://web.archive.org/web/20180903190049/http://ruben.am/2016/09/25/supporting-users-as-a-developer.html"
+
+[[redirects]]
+  from = "/2016/10/16/interviewing-developers-at-gds.html"
+  to = "https://web.archive.org/web/20180903215351/http://ruben.am/2016/10/16/interviewing-developers-at-gds.html"
+
+[[redirects]]
+  from = "/2016/11/21/hacking-for-the-government.html"
+  to = "https://web.archive.org/web/20180903192732/http://ruben.am/2016/11/21/hacking-for-the-government.html"
+
+[[redirects]]
+  from = "/2016/12/31/an-uneventful-christmas.html"
+  to = "https://web.archive.org/web/20180903212856/http://ruben.am/2016/12/31/an-uneventful-christmas.html"
+
+[[redirects]]
+  from = "/2017/03/20/publishing-for-the-rest-of-the-world.html"
+  to = "https://web.archive.org/web/20180903171858/http://ruben.am/2017/03/20/publishing-for-the-rest-of-the-world.html"
+
+[[redirects]]
+  from = "/2017/07/29/experimenting-with-fixed-time-and-variable-scope.html"
+  to = "https://web.archive.org/web/20180903194535/http://ruben.am/2017/07/29/experimenting-with-fixed-time-and-variable-scope.html"
+
+[[redirects]]
+  from = "/2017/08/26/thoughts-on-responsible-building.html"
+  to = "https://web.archive.org/web/20180903202713/http://ruben.am/2017/08/26/thoughts-on-responsible-building.html"
+
+[[redirects]]
+  from = "/2018/03/26/the-peoples-email.html"
+  to = "https://web.archive.org/web/20180903202904/http://ruben.am/2018/03/26/the-peoples-email.html"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Security-Policy = "default-src 'self'; font-src data:; style-src 'self' https://cloud.typography.com; report-uri https://arakelyan.report-uri.com/r/d/csp/enforce"
+    Expect-CT = "max-age=86400, enforce, report-uri=\"https://arakelyan.report-uri.com/r/d/ct/enforce\""
+    NEL = "{\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}"
+    Permissions-Policy = "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), layout-animations=(), legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), oversized-images=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), wake-lock=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Report-To = "{\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://arakelyan.report-uri.com/a/d/g\"}],\"include_subdomains\":true}"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
