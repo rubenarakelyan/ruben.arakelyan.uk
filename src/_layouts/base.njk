@@ -39,11 +39,16 @@
           <li>
             <a href="/uses/" {% if page.url == "/uses/" %} class="current" {% endif %}>What I use</a>
           </li>
+          <li>
+            <a href="/archive/" {% if page.url == "/archive/" %} class="current" {% endif %}>Archive</a>
+          </li>
         </ul>
       </nav>
     </header>    
     <main>
+      {% block content %}
       {{ content | safe }}
+      {% endblock %}
     </main>
     <footer>
       <section>
