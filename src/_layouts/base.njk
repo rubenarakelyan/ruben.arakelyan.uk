@@ -40,7 +40,7 @@
             <a href="/uses/" {% if page.url == "/uses/" %} class="current" {% endif %}>What I use</a>
           </li>
           <li>
-            <a href="/archive/" {% if page.url == "/archive/" %} class="current" {% endif %}>Archive</a>
+            <a href="/archive/" {% if "/archive/" in page.url %} class="current" {% endif %}>Archive</a>
           </li>
         </ul>
       </nav>
