@@ -7,7 +7,7 @@ Deployments are a key part of running a web application, but most of the time, t
 
 However, using a number of AWS services, deployments can be made much easier, with most of the process automated.
 
-On the Accord ODR project, we use ECS to host our application using Docker containers. Here, I'll show how GitHub, CodePipeline and ECR (Elastic Container Registry) can be used to create an easy-to-use process that mostly just happens in the background and is very light touch.
+On the Accord ODR project, we use ECS to host our application using Docker containers. Here, I’ll show how GitHub, CodePipeline and ECR (Elastic Container Registry) can be used to create an easy-to-use process that mostly just happens in the background and is very light touch.
 
 ## Creating a repository for Docker images
 
@@ -23,13 +23,13 @@ resource "aws_ecr_repository" "app_image_repository" {
 }
 ```
 
-We create a repository called `app-images` which we'll use in the deployment process. "Scan on push" enables a feature which scans for vulnerabilities in your images which are then displayed in the ECR dashboard.
+We create a repository called `app-images` which we’ll use in the deployment process. "Scan on push" enables a feature which scans for vulnerabilities in your images which are then displayed in the ECR dashboard.
 
 ## CodePipeline and related services
 
 Now we need to set up CodePipeline. But before we create the pipeline itself, we need to create the components that make it up.
 
-In our case, we'll go with a simple pipeline that is triggered by commits being pushed to the `master` branch, builds a Docker image, runs the test suite, pushes it to ECR then deploys it to ECS.
+In our case, we’ll go with a simple pipeline that is triggered by commits being pushed to the `master` branch, builds a Docker image, runs the test suite, pushes it to ECR then deploys it to ECS.
 
 ## Building Docker images with CodeBuild
 
@@ -77,11 +77,11 @@ resource "aws_codebuild_project" "codebuild" {
 }
 ```
 
-Let's go through what we've just created. We start with a build spec file (which we'll look at next) that will tell CodeBuild what to do. Next, we create the CodeBuild project itself. We define it to be part of a CodePipeline pipeline (this affects how CodeBuild expects to receive artefacts), we provide an S3 bucket where items can be cached temporarily, then we define where our script will run.
+Let’s go through what we’ve just created. We start with a build spec file (which we’ll look at next) that will tell CodeBuild what to do. Next, we create the CodeBuild project itself. We define it to be part of a CodePipeline pipeline (this affects how CodeBuild expects to receive artefacts), we provide an S3 bucket where items can be cached temporarily, then we define where our script will run.
 
-In our case, we go with a small general-purpose Linux build machine running a custom-built build image. Our build image is based on the freely-available `docker-dind` image (available from [https://hub.docker.com/_/docker](https://hub.docker.com/_/docker)) with a few more tools added in (notably Docker Compose since that's what we use to create our images). This is a Docker image that allows us to build more Docker images inside it by including the Docker server.
+In our case, we go with a small general-purpose Linux build machine running a custom-built build image. Our build image is based on the freely-available `docker-dind` image (available from [https://hub.docker.com/_/docker](https://hub.docker.com/_/docker)) with a few more tools added in (notably Docker Compose since that’s what we use to create our images). This is a Docker image that allows us to build more Docker images inside it by including the Docker server.
 
-Finally, we include the build spec file. Let's take a look at that.
+Finally, we include the build spec file. Let’s take a look at that.
 
 ```yaml
 version: 0.2
@@ -159,20 +159,20 @@ artifacts:
     - appspec-production.yaml
 ```
 
-There's a lot happening in here, but it can be summarised as follows:
+There’s a lot happening in here, but it can be summarised as follows:
 
-- Set up some environment variables used by CodeClimate (which we're using here for code coverage reporting)
-- Authenticate with ECR and Docker Hub (we'll use both to pull and push Docker images)
-- Run the Docker daemon which we'll use the build the images
+- Set up some environment variables used by CodeClimate (which we’re using here for code coverage reporting)
+- Authenticate with ECR and Docker Hub (we’ll use both to pull and push Docker images)
+- Run the Docker daemon which we’ll use the build the images
 - Create the `.env` file by copying the example
 - Use Docker Compose to build the Docker images based on our AWS-specific compose file
 - Run the test suite via a script we have in the application repository
-- Get some artefact files from S3 (where we've uploaded them beforehand)
+- Get some artefact files from S3 (where we’ve uploaded them beforehand)
 - Tag and push the "web" Docker image (the one that contains our app) to ECR
 - Build an `imageDetail.json` file which will be used by CodeDeploy to deploy the app
 - Get any screenshots output by RSpec due to failing tests and make them available for viewing more easily
 
-Most of this shouldn't be a surprise. Let's take a look at the artefact files we pull from S3. Firstly, the `appspec.yaml` file:
+Most of this shouldn’t be a surprise. Let’s take a look at the artefact files we pull from S3. Firstly, the `appspec.yaml` file:
 
 ```yaml
 version: 0.0
@@ -368,7 +368,7 @@ Here we create a deployment group which determines how CodeDeploy carries out th
 
 We tell CodeDeploy to deploy to all ECS containers at the same time, using a blue-green strategy. This mean that new containers will be created and bought up, then once they are determined to be ready, we have 1 hour to cancel the deployment before the old containers are removed and the newly-deployed ones take their place. During this time, the old containers are drained and all new connections are routed to the new containers.
 
-If there is any failure during the deployment (such as the containers crashing), the deployment is terminated and rolled back to the previous state. In this way, we have zero-downtime deployments and therefore don't need to schedule them out-of-hours. This strategy is enabled by creating two target groups for our load balancer (one for blue, one for green).
+If there is any failure during the deployment (such as the containers crashing), the deployment is terminated and rolled back to the previous state. In this way, we have zero-downtime deployments and therefore don’t need to schedule them out-of-hours. This strategy is enabled by creating two target groups for our load balancer (one for blue, one for green).
 
 ## Bringing it all together with CodePipeline
 

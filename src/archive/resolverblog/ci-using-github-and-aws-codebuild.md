@@ -3,7 +3,7 @@ layout: md
 title: "CI using GitHub and AWS CodeBuild"
 ---
 
-[Last time](/archive/resolverblog/sending-slack-alerts-to-approve-codepipeline-deployments/), we mentioned CI as one of things that we try to automate as much as possible. This time, we'll go through more details about our CI setup and how it relates to our deployment pipeline.
+[Last time](/archive/resolverblog/sending-slack-alerts-to-approve-codepipeline-deployments/), we mentioned CI as one of things that we try to automate as much as possible. This time, we’ll go through more details about our CI setup and how it relates to our deployment pipeline.
 
 ## Setting up the CodeBuild project
 
@@ -51,9 +51,9 @@ resource "aws_codebuild_project" "codebuild" {
 
 This is a similar setup to our [one-off Fargate containers](/archive/resolverblog/running-database-migrations-on-deployment-for-fargate-containers/) for running database migrations, which also runs in CodeBuild.
 
-We get the CodeBuild spec (which we'll go into next), and then set up the project. The project setup itself is very simple - we just give CodeBuild our GitHub repository, and tell it to run our project inside the `docker-19.03-dind` Docker container.
+We get the CodeBuild spec (which we’ll go into next), and then set up the project. The project setup itself is very simple - we just give CodeBuild our GitHub repository, and tell it to run our project inside the `docker-19.03-dind` Docker container.
 
-The `docker-19.03-dind` Docker container is one we build and run ourselves, and it's [hosted on Docker Hub](https://hub.docker.com/r/accordodr/docker-19.03-dind) for anyone to use. It's based on the `docker-19.03-dind` base container, and [we add](https://github.com/resolving/docker-19.03-dind) Docker Compose, Bash, Git and the AWS CLI. This means we can use our Docker Compose setup for CI easily to bring up all the relevant containers. DIND here stands for "Docker in Docker", which means the container itself also runs Docker. This is required for Docker Compose to work.
+The `docker-19.03-dind` Docker container is one we build and run ourselves, and it’s [hosted on Docker Hub](https://hub.docker.com/r/accordodr/docker-19.03-dind) for anyone to use. It’s based on the `docker-19.03-dind` base container, and [we add](https://github.com/resolving/docker-19.03-dind) Docker Compose, Bash, Git and the AWS CLI. This means we can use our Docker Compose setup for CI easily to bring up all the relevant containers. DIND here stands for "Docker in Docker", which means the container itself also runs Docker. This is required for Docker Compose to work.
 
 ## The CodeBuild buildspec
 

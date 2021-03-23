@@ -7,7 +7,7 @@ Last time, we looked at [building a deployment pipeline using CodePipeline](/arc
 
 Given the increasing number of countries that are implementing data residency policies, we now need to be able to deploy a copy of our application in a different region along with its database and connected services at the same time as in the main region (London `eu-west-2` in this case).
 
-We'll look at how we can amend our earlier CodePipeline deployment pipeline to deploy the same application image to ECS in two different regions simultaneously.
+We’ll look at how we can amend our earlier CodePipeline deployment pipeline to deploy the same application image to ECS in two different regions simultaneously.
 
 ## Single region deployment
 

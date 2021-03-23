@@ -3,19 +3,19 @@ layout: md
 title: "Virus scanning files in S3 and integrating with Rails"
 ---
 
-If you have an app that accepts file uploads, then either you're aware of the potential risks, or you should be.
+If you have an app that accepts file uploads, then either you’re aware of the potential risks, or you should be.
 
 With Accord ODR, we started by limiting the types of files that can be uploaded by users. This is the easy part: disallow executable files or anything else that can be scripted. This includes not only obvious candidates like JavaScript files but also things like [WMF images](https://en.wikipedia.org/wiki/Windows_Metafile_vulnerability), since these can contain executable code.
 
-That's all well and good, but file format detection can absolutely be circumvented, and so even when we get an allowed file format uploaded, we have to quarantine it until it's been scanned for viruses, and always assume that the file is infected until it has been proven to be clean.
+That’s all well and good, but file format detection can absolutely be circumvented, and so even when we get an allowed file format uploaded, we have to quarantine it until it’s been scanned for viruses, and always assume that the file is infected until it has been proven to be clean.
 
-Of course, virus scanning is not a panacea and files can (and do) get through a scan while also containing a virus. There's always the chance that we'll allow another user to download a file from the site that contains a virus even though our scan has marked it as clean. However, by isolating these files in S3, they at least cannot infect the app itself and potentially obtain access to personal data.
+Of course, virus scanning is not a panacea and files can (and do) get through a scan while also containing a virus. There’s always the chance that we’ll allow another user to download a file from the site that contains a virus even though our scan has marked it as clean. However, by isolating these files in S3, they at least cannot infect the app itself and potentially obtain access to personal data.
 
 # Using S3 VirusScan
 
-The most popular solution currently available is [Widdix's AWS S3 VirusScan](https://github.com/widdix/aws-s3-virusscan), available from the AWS Marketplace. This is basically a wrapper around ClamAV, an open source virus scanner. The wrapper includes a Lambda function that is triggered each time a file is uploaded to a watched S3 bucket, which then runs ClamAV against the file, and adds metadata to the file to tag its scan result. It also sends a notification to SNS which can be used to trigger other actions (more about that below).
+The most popular solution currently available is [Widdix’s AWS S3 VirusScan](https://github.com/widdix/aws-s3-virusscan), available from the AWS Marketplace. This is basically a wrapper around ClamAV, an open source virus scanner. The wrapper includes a Lambda function that is triggered each time a file is uploaded to a watched S3 bucket, which then runs ClamAV against the file, and adds metadata to the file to tag its scan result. It also sends a notification to SNS which can be used to trigger other actions (more about that below).
 
-We use Rails' built-in Active Storage to upload files to the watched S3 bucket which then triggers a virus scan.
+We use Rails’ built-in Active Storage to upload files to the watched S3 bucket which then triggers a virus scan.
 
 # Getting virus scan results into your app
 
@@ -40,7 +40,7 @@ The `app_s3_virusscan_notification_endpoint` variable is the full URL to an HTTP
 
 At our endpoint, we have a controller than handles incoming SNS notifications. Looking closely, the `endpoint_auto_confirms` flag is set to `true`, and this means that when the subscription is first created, the endpoint must also be able to return a confirmation message, otherwise the subscription will fail.
 
-With that caveat out of the way, let's take a look at our controller:
+With that caveat out of the way, let’s take a look at our controller:
 
 ```ruby
 def s3_virus_scan
@@ -72,7 +72,7 @@ def notification_message?
 end
 ```
 
-With that done, we next need to parse the body to extract the information we need. To make sure we aren't being fooled by someone sending us a fake notification to mark a virus-laden file as clean, we run a method provided by the `aws-sdk-sns` gem which verifies signatures on the notification to make sure it's legitimate:
+With that done, we next need to parse the body to extract the information we need. To make sure we aren’t being fooled by someone sending us a fake notification to mark a virus-laden file as clean, we run a method provided by the `aws-sdk-sns` gem which verifies signatures on the notification to make sure it’s legitimate:
 
 ```ruby
 def verify_message_authenticity!(message)
@@ -81,7 +81,7 @@ def verify_message_authenticity!(message)
 end
 ```
 
-Now that we know we have a legitimate notification, we need to process it. If the notification is a subscription confirmation, it means we're setting up the subscription for the first time. We just need to respond to signal to AWS that the subscription can be set up:
+Now that we know we have a legitimate notification, we need to process it. If the notification is a subscription confirmation, it means we’re setting up the subscription for the first time. We just need to respond to signal to AWS that the subscription can be set up:
 
 ```ruby
 def confirm_sns_subscription(message)
@@ -145,7 +145,7 @@ Rails.configuration.to_prepare do
 end
 ```
 
-# "Quarantining" infected files
+# “Quarantining” infected files
 
 If the virus scanner marks a file as infected, then we want to make sure that file cannot be downloaded by app users. We could do this by immediately deleting the file, but there is a chance the status is a false positive (all virus scanner vendors sometimes mess up their signature files), or we may be interested in analysing the file further.
 
@@ -178,13 +178,13 @@ For these reasons, we keep infected files in our S3 bucket, but we prevent them 
 
 In a [previous blog post](/archive/resolverblog/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), we discussed setting up an S3 bucket policy for our assets bucket (where we store uploaded files) to allow CloudFront to serve these files, authenticating itself with an origin access identity (OAI).
 
-We now add a condition to that policy, which only allows access by CloudFront if the virus scan status of a file is "clean". This means that S3 will deny access to any files that have either not yet been scanned, or have been marked as infected.
+We now add a condition to that policy, which only allows access by CloudFront if the virus scan status of a file is “clean”. This means that S3 will deny access to any files that have either not yet been scanned, or have been marked as infected.
 
 This is a nice failsafe to ensure that even if the app attempts to construct a link to such a file and serve it, policy will block that file from actually being served.
 
 # Doing something with the status
 
-Now that everything is set up, every uploaded file starts with a `no_scan` status. Once the file is scanned and we've been notified of the result, we can take various actions.
+Now that everything is set up, every uploaded file starts with a `no_scan` status. Once the file is scanned and we’ve been notified of the result, we can take various actions.
 
 In our app, we display a message if the file has not yet been scanned or if it has been marked as infected. This gives feedback to the user about the status of their uploads and allows them to take action, for example to re-upload a file or get in touch with us if they suspect a false positive.
 
@@ -196,4 +196,4 @@ The best way around this issue is to periodically re-scan all the files in our S
 
 However, the issue with this approach is that as the number of files in the bucket increases, the scan time will also increase, which increases costs in Lambda run time. It also increases costs in repeatedly retrieving files from the bucket and then writing their status metadata back.
 
-This is an area we are still investigating, and hopefully in the future we'll be able to come up with a solution that balances the requirement to detect infected files with the requirement to not add extra unnecessary infrastructure cost.
+This is an area we are still investigating, and hopefully in the future we’ll be able to come up with a solution that balances the requirement to detect infected files with the requirement to not add extra unnecessary infrastructure cost.

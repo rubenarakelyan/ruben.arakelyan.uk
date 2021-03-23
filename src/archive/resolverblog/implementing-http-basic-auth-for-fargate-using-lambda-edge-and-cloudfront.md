@@ -3,17 +3,17 @@ layout: md
 title: "Implementing HTTP Basic Auth for Fargate using Lambda@Edge and CloudFront"
 ---
 
-Ask any developer the quickest and hackiest way of locking unauthorised users out of your website and they will probably mention HTTP Basic Auth. As an extremely simple method of authentication that is built-in to the HTTP protocol standard and supported by every web browser, it's the universal, go-to method of setting up a username and password authentication prompt with minimal work.
+Ask any developer the quickest and hackiest way of locking unauthorised users out of your website and they will probably mention HTTP Basic Auth. As an extremely simple method of authentication that is built-in to the HTTP protocol standard and supported by every web browser, it’s the universal, go-to method of setting up a username and password authentication prompt with minimal work.
 
-Simplicity and minimalism of course bring with them compromise, and most things you may associate with authentication systems cannot be achieved easily or at all with HTTP Basic Auth, so you would probably not consider it your primary authentication method for anything but the most basic of needs. But for our needs, it's the perfect method of stopping casual snooping and accidental usage of a non-live system.
+Simplicity and minimalism of course bring with them compromise, and most things you may associate with authentication systems cannot be achieved easily or at all with HTTP Basic Auth, so you would probably not consider it your primary authentication method for anything but the most basic of needs. But for our needs, it’s the perfect method of stopping casual snooping and accidental usage of a non-live system.
 
-We're building a new SaaS product, and we have both a staging system (which is non-live by definition and where we do a lot of our testing with fake data) and a production system (which will be live once the system is ready to launch, but is currently dormant). The production system will eventually be publically accessible but the staging system is only for internal development. Securing both of these systems from outside access during development is a great use case for HTTP Basic Auth.
+We’re building a new SaaS product, and we have both a staging system (which is non-live by definition and where we do a lot of our testing with fake data) and a production system (which will be live once the system is ready to launch, but is currently dormant). The production system will eventually be publically accessible but the staging system is only for internal development. Securing both of these systems from outside access during development is a great use case for HTTP Basic Auth.
 
 ## How this works with Fargate
 
-There are usually two ways to implement HTTP Basic Auth - either on the web server or in the application itself. Implementing in the application does mean you don't need to fiddle with infrastructure, but it adds more overhead to the application and can make things slower for large numbers of requests. The preference is to add the configuration at the web server level.
+There are usually two ways to implement HTTP Basic Auth - either on the web server or in the application itself. Implementing in the application does mean you don’t need to fiddle with infrastructure, but it adds more overhead to the application and can make things slower for large numbers of requests. The preference is to add the configuration at the web server level.
 
-However, with Fargate, we have no access to the underlying web server or any of the related infrastructure, and we don't want to start adding cruft into our application.
+However, with Fargate, we have no access to the underlying web server or any of the related infrastructure, and we don’t want to start adding cruft into our application.
 
 Luckily for us, Lambda functions are the perfect, lightweight option for running small functions a large number of times. Lambda@Edge, a specialist type of Lambda, replicates your function to all CloudFront edge locations around the world, allowing it to sit in front of requests to the CDN and run blazing fast.
 
@@ -21,7 +21,7 @@ We can use a Lambda@Edge function in conjunction with our CloudFront distributio
 
 ## Creating the Lambda@Edge function
 
-Let's start by creating the function that will run with each request. This function will read and set the appropriate HTTP headers to control access using HTTP Basic Auth. We're using JavaScript here with NodeJS:
+Let’s start by creating the function that will run with each request. This function will read and set the appropriate HTTP headers to control access using HTTP Basic Auth. We’re using JavaScript here with NodeJS:
 
 ```jsx
 'use strict';
@@ -86,11 +86,11 @@ The function itself is contained in a file called `http_basic_auth.js`. This fil
 
 In order to upload the function to AWS, we need to compress it inside a zip file. On upload, the zip file is automatically uncompressed. This zip file is referred to in the definition.
 
-One last thing to note is that we're creating this function in the `us-east-1` AWS region. This is important since all Lambda@Edge functions to be used with CloudFront must be in this region. The knock-on impact of this is that CloudWatch logs for this function will also reside in that region rather than whatever other region you may be using for the rest of your infrastructure.
+One last thing to note is that we’re creating this function in the `us-east-1` AWS region. This is important since all Lambda@Edge functions to be used with CloudFront must be in this region. The knock-on impact of this is that CloudWatch logs for this function will also reside in that region rather than whatever other region you may be using for the rest of your infrastructure.
 
 ## Linking the Lambda@Edge function to the CloudFront distribution
 
-Now that we have a Lambda@Edge function, we need to tell our CloudFront distribution to use it for each request. In a [previous blog post](/archive/resolverblog/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), I showed a sample CloudFront distribution definition for assets. We'll use something similar here and add in a link to the Lambda@Edge function:
+Now that we have a Lambda@Edge function, we need to tell our CloudFront distribution to use it for each request. In a [previous blog post](/archive/resolverblog/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), I showed a sample CloudFront distribution definition for assets. We’ll use something similar here and add in a link to the Lambda@Edge function:
 
 ```ruby
 resource "aws_cloudfront_distribution" "cloudfront_cdn" {
@@ -137,8 +137,8 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
 
 The interesting part of the definition above is the `lambda_function_association` block. This block associates a Lambda@Edge function with the distribution. This function is run for every request and receives a copy of the request headers.
 
-That's it! Once that's all built, test it out by visiting the URL you're protecting. You should see a prompt similar to this:
+That’s it! Once that’s all built, test it out by visiting the URL you’re protecting. You should see a prompt similar to this:
 
 ![An HTTP Basic Auth credentials request dialog box in Mozilla Firefox](/img/resolverblog/http-basic-auth-request.png)
 
-Test it out by typing a random username and password, and you should be prompted again. Now, try the username and password you previously hardcoded into the Lambda@Edge function, and you'll see your site.
+Test it out by typing a random username and password, and you should be prompted again. Now, try the username and password you previously hardcoded into the Lambda@Edge function, and you’ll see your site.

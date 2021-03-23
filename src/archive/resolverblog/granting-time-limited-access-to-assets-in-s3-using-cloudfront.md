@@ -3,15 +3,15 @@ layout: md
 title: "Granting time-limited access to assets in S3 using CloudFront"
 ---
 
-There was a time when asset storage was one of the problems facing web app developers - maybe you stored assets on the web server (easy if you only have one, more difficult if you need to sync them up between multiple servers), or maybe you had a shared disk mounted using NFS. In any case, the easier part was granting access to these assets to the right users. Given that assets are normally stored outside the web server's root directory, it's easy to write a script that checks user access then serves the asset.
+There was a time when asset storage was one of the problems facing web app developers - maybe you stored assets on the web server (easy if you only have one, more difficult if you need to sync them up between multiple servers), or maybe you had a shared disk mounted using NFS. In any case, the easier part was granting access to these assets to the right users. Given that assets are normally stored outside the web server’s root directory, it’s easy to write a script that checks user access then serves the asset.
 
 The downside of serving your own assets is firstly that you need somewhere to store them (and hopefully back them up) and secondly that it uses up your precious bandwidth (an issue if you pay for a limited amount of bandwidth per month, for example). However, there is a better way - using a cloud storage solution like S3 from AWS.
 
 S3 allows you to store and serve assets quickly, easily and most of all, very cheaply, especially if you basically outsource the serving directly to S3 and bypass your web server entirely. The downside to this is that you lose control of any app-based access controls.
 
-## Why S3 pre-signed URLs don't work here
+## Why S3 pre-signed URLs don’t work here
 
-The simplest answer here is to make use of S3 pre-signed URLs. These are time-limited URLs containing a signing key that is generated from a set of metadata and AWS credentials. If you're using the default S3 URLs, then this is a simple and viable strategy to grant time-limited access to assets in an S3 bucket that are normally only accessible to the owner of the bucket.
+The simplest answer here is to make use of S3 pre-signed URLs. These are time-limited URLs containing a signing key that is generated from a set of metadata and AWS credentials. If you’re using the default S3 URLs, then this is a simple and viable strategy to grant time-limited access to assets in an S3 bucket that are normally only accessible to the owner of the bucket.
 
 In this case however, the objective is to use CloudFront to sit in front of S3 both for CDN and caching purposes, and also because it allows use of a custom domain name to access the assets, as well as allowing much more control of things like HTTP headers.
 
@@ -21,11 +21,11 @@ The problem stems from the fact that CloudFront itself needs to be able to acces
 
 Happily, CloudFront has its own implementation of signed URLs. These are signed at the CloudFront level and can be used to grant time-limited access to any CloudFront-fronted content, not just assets in an S3 bucket.
 
-In our case, we'll use CloudFront signed URLs in our Ruby code to implement time-limited access to sensitive data to only those users who are entitled to access it.
+In our case, we’ll use CloudFront signed URLs in our Ruby code to implement time-limited access to sensitive data to only those users who are entitled to access it.
 
 ## The S3 bucket and pre-requisites
 
-Before we go ahead and create an S3 bucket, we need two pre-requisites. First up, it's a CloudFront origin access identity (OAI).
+Before we go ahead and create an S3 bucket, we need two pre-requisites. First up, it’s a CloudFront origin access identity (OAI).
 
 ```ruby
 resource "aws_cloudfront_origin_access_identity" "cloudfront_assets_proxy_origin_access_identity" {
@@ -69,9 +69,9 @@ The content of the policy is:
 }
 ```
 
-This policy grants permission to the CloudFront OAI to get objects from the S3 bucket we're about to create. Later when we create the CloudFront distribution, we'll give it this OAI to use akin to an authentication token or IAM role.
+This policy grants permission to the CloudFront OAI to get objects from the S3 bucket we’re about to create. Later when we create the CloudFront distribution, we’ll give it this OAI to use akin to an authentication token or IAM role.
 
-Now we're able to create an S3 bucket to hold the assets.
+Now we’re able to create an S3 bucket to hold the assets.
 
 ```ruby
 resource "aws_s3_bucket" "assets" {
@@ -160,7 +160,7 @@ resource "aws_route53_record" "cloudfront_assets_proxy_service_record" {
 
 Now we have all the infrastructure set up, we can start signing URLs in our app.
 
-In this case, we're using Rails' built-in ActiveStorage component with the S3 configuration to handle the uploading and management of files, and the `cloudfront-signer` gem to provide methods for signing our URLs. We enabled `self` to generate signed URLs above, which means anything running under the context of the same AWS account.
+In this case, we’re using Rails’ built-in ActiveStorage component with the S3 configuration to handle the uploading and management of files, and the `cloudfront-signer` gem to provide methods for signing our URLs. We enabled `self` to generate signed URLs above, which means anything running under the context of the same AWS account.
 
 We use the root account for AWS to generate a CloudFront public/private key pair which we set up using an environment variable called `CLOUDFRONT_PRIVATE_KEY`.
 
@@ -191,7 +191,7 @@ end
 
 The method takes an ActiveStorage blob (which represents a file in S3) and constructs a URL for it using the domain we set up as a CloudFront distribution, the key (which is the name the file is stored under in S3) and a couple of query string entries which define the original file name and content type (this is why we enabled query string forwarding above).
 
-The given content type is returned by S3 as an HTTP header with the file to allow the browser to determine how to display the file. The file name is also returned as an HTTP header so if the user decides to download or save the file, it'll get a usable file name rather than a random key.
+The given content type is returned by S3 as an HTTP header with the file to allow the browser to determine how to display the file. The file name is also returned as an HTTP header so if the user decides to download or save the file, it’ll get a usable file name rather than a random key.
 
 Note as per the comment that you must ensure the entire URL is URL encoded wherever needed as otherwise, the signed URL will not match and no content will be returned.
 

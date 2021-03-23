@@ -11,15 +11,15 @@ At Resolver, we use AWS for the majority of our infrastructure, and we generally
 
 As an example, for a hypothetical product hosted at example.com, the apex domain (example.com) is effectively the namespace for our production environment, whilst the staging subdomain (staging.example.com) is the namespace for our staging environment. Given that we will be using subdomains (such as [app.example.com](http://app.example.com) or [app.staging.example.com](http://app.staging.example.com) for our web app), it makes sense to also have a subdomain for the main site itself, which conveniently can be www (as in [www.example.com](http://www.example.com) or www.staging.example.com).
 
-For the staging environment, this is fine since we don't expect anyone to be visiting staging.[example.com](http://example.com), but it is a reasonable assumption that some people will try to visit example.com, and without a redirect in place, they'll be confused about why they can't access the site.
+For the staging environment, this is fine since we don’t expect anyone to be visiting staging.[example.com](http://example.com), but it is a reasonable assumption that some people will try to visit example.com, and without a redirect in place, they’ll be confused about why they can’t access the site.
 
 # Redirecting at the CDN level
 
 By choosing to use the existing CDN to handle the redirect from the apex domain to the www subdomain, we avoid having to deal with this either in our app (slow and extra logic to maintain) or on our web server (extra configuration and bandwidth charges, and not available if you use containerised solutions such as ECS).
 
-This technique requires a CloudFront distribution and an S3 bucket. So let's see how it's done.
+This technique requires a CloudFront distribution and an S3 bucket. So let’s see how it’s done.
 
-(As a side note, in this and future technical posts we'll generally use Terraform's HCL syntax when we're demonstrating infrastructure since it allow a concise textual representation).
+(As a side note, in this and future technical posts we’ll generally use Terraform’s HCL syntax when we’re demonstrating infrastructure since it allow a concise textual representation).
 
 ## The S3 bucket
 
@@ -74,9 +74,9 @@ resource "aws_cloudfront_distribution" "apex_domain_redirect_cloudfront_cdn" {
 }
 ```
 
-Even though there is a dedicated CloudFront origin type for S3 buckets, that is only designed for when you're serving files from that bucket. Here, we're using the website hosting capability of S3, which means we need to use the custom origin configuration instead.
+Even though there is a dedicated CloudFront origin type for S3 buckets, that is only designed for when you’re serving files from that bucket. Here, we’re using the website hosting capability of S3, which means we need to use the custom origin configuration instead.
 
-We set the origin to the website endpoint of our S3 bucket (which looks something like http://example.com.[s3-website.eu-west-2.amazonaws.com](http://s3-website.eu-west-2.amazonaws.com/)) and we configure it as HTTP-only (S3 website endpoints don't support HTTPS, but you can terminate TLS in CloudFront by configuring a certificate in the distribution).
+We set the origin to the website endpoint of our S3 bucket (which looks something like http://example.com.[s3-website.eu-west-2.amazonaws.com](http://s3-website.eu-west-2.amazonaws.com/)) and we configure it as HTTP-only (S3 website endpoints don’t support HTTPS, but you can terminate TLS in CloudFront by configuring a certificate in the distribution).
 
 At this point, we have our CDN (accessible at something-random.cloudfront.net), which sends all requests to S3, which replies with a redirect to www.example.com.
 
@@ -98,7 +98,7 @@ resource "aws_route53_record" "apex_domain_redirect_cloudfront_cdn_service_recor
 }
 ```
 
-Given we're using both Route 53 and CloudFront, we can make use of alias records. This is useful since ideally we'd use CNAMEs (to allow for changing CloudFront IP addresses without having to update our records), but they are not allowed for apex domains since they cannot co-exist with any other record type (and apex domains have SOA and NS records at a minimum). Alias records are provider-specific records that act like CNAMEs but present themselves as A records pointing to an IP address.
+Given we’re using both Route 53 and CloudFront, we can make use of alias records. This is useful since ideally we’d use CNAMEs (to allow for changing CloudFront IP addresses without having to update our records), but they are not allowed for apex domains since they cannot co-exist with any other record type (and apex domains have SOA and NS records at a minimum). Alias records are provider-specific records that act like CNAMEs but present themselves as A records pointing to an IP address.
 
 ## The final view
 

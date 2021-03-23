@@ -33,7 +33,7 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
 }
 ```
 
-Here, we set up CloudFront to save access logs to an S3 bucket, which we create with a lifecycle rule to make sure we're not keeping logs forever.
+Here, we set up CloudFront to save access logs to an S3 bucket, which we create with a lifecycle rule to make sure we’re not keeping logs forever.
 
 ## Querying logs using SQL
 
@@ -79,11 +79,11 @@ resource "aws_athena_workgroup" "cloudfront_logs_athena_workgroup" {
 }
 ```
 
-We set up another S3 bucket which is used to cache the results of Athena queries. This makes them a lot faster, and importantly, means you don't need to pay for the same query over and over again.
+We set up another S3 bucket which is used to cache the results of Athena queries. This makes them a lot faster, and importantly, means you don’t need to pay for the same query over and over again.
 
 We then set up the Athena database and a workgroup, which is a way of separating different workloads and data sets.
 
-So far, so good, but we still don't have any data in Athena. We now need to create a table in the database that will contain the access log data.
+So far, so good, but we still don’t have any data in Athena. We now need to create a table in the database that will contain the access log data.
 
 ```ruby
 resource "null_resource" "cloudfront_logs_athena_table" {
@@ -163,6 +163,6 @@ We now finally have all the bits we need to be able to query our logs. So we jus
 
 ![The Athena query editor with a sample SQL query and results](/img/resolverblog/athena.png)
 
-Here we've run a simple query to get the first 10 log entries. You can see that it took about 1.5 seconds and scanned about 1.67MB of data. These statistics are used to calculate how much you pay for the query.
+Here we’ve run a simple query to get the first 10 log entries. You can see that it took about 1.5 seconds and scanned about 1.67MB of data. These statistics are used to calculate how much you pay for the query.
 
-Now everything's set up, and we can run queries of any complexity to answer a particular question about visitors to our app quickly and easily.
+Now everything’s set up, and we can run queries of any complexity to answer a particular question about visitors to our app quickly and easily.

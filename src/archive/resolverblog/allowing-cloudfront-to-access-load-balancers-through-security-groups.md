@@ -29,9 +29,9 @@ resource "aws_security_group" "app" {
 }
 ```
 
-Here, we set up the Security Group that's attached to the load balancer to access the application (in this instance, running in ECS). We allow the app containers ingress access only from the load balancer to port 8080 (where the app is running). We also allow the app container all egress access back to the Internet.
+Here, we set up the Security Group that’s attached to the load balancer to access the application (in this instance, running in ECS). We allow the app containers ingress access only from the load balancer to port 8080 (where the app is running). We also allow the app container all egress access back to the Internet.
 
-This setup works in all instances where you can specify access to a resource using another Security Group, but what if you want to limit access to CloudFront, which doesn't have a Security Group?
+This setup works in all instances where you can specify access to a resource using another Security Group, but what if you want to limit access to CloudFront, which doesn’t have a Security Group?
 
 In this case, you would normally fall back to using IP addresses. For example, the following example allows SSH access to a bastion EC2 instance:
 
@@ -59,7 +59,7 @@ resource "aws_security_group" "bastion" {
 
 Here, we allow access from any IP address to port 22 for SSH, and again we allow all egress access back to the Internet.
 
-The difference with CloudFront is that the IP addresses it uses for ingress access change over time, so we can't just hardcode a list of them into the configuration. Instead, we need to get the list dynamically whenever we run Terraform, and pass this list to the security group.
+The difference with CloudFront is that the IP addresses it uses for ingress access change over time, so we can’t just hardcode a list of them into the configuration. Instead, we need to get the list dynamically whenever we run Terraform, and pass this list to the security group.
 
 ```ruby
 # Get the current list of AWS CloudFront IP ranges
@@ -110,4 +110,4 @@ resource "aws_security_group" "load_balancer" {
 
 Here we create a Security Group per chunk, and feed the chunk into an ingress rule. As of this blog post, this will result in 4 Security Groups being created, each of which allows access from 30 CloudFront IP addresses to the load balancer.
 
-**Please note, however, that CloudFront IP addresses change every now and then. At the moment, there doesn't seem to be a better way of restricting access than running this configuration every now and then to refresh the list of IP addresses allowed access.**
+**Please note, however, that CloudFront IP addresses change every now and then. At the moment, there doesn’t seem to be a better way of restricting access than running this configuration every now and then to refresh the list of IP addresses allowed access.**

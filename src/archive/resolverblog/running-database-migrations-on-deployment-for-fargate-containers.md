@@ -7,15 +7,15 @@ One of the tenets of modern framework-based web development is the management of
 
 Part and parcel of having database migrations is being able to run them at the correct time during the deployment process. With classic deployment methods, this may just be a case of adding a migration command just before or after the deployment command.
 
-However, if you're using CodeDeploy with CodePipeline for your deployment, you'll have noticed that there's no built-in functionality for database migrations as part of deployment. That's where the flexibility of CodePipeline comes into play.
+However, if you’re using CodeDeploy with CodePipeline for your deployment, you’ll have noticed that there’s no built-in functionality for database migrations as part of deployment. That’s where the flexibility of CodePipeline comes into play.
 
 ## CodePipeline to the rescue
 
-CodePipeline by definition exists to bring together disparate parts of SCM, build and deployment into a single place. In practice, this flexibility means you're free to add as many steps as you need in order to complete a deployment, in whichever order makes sense.
+CodePipeline by definition exists to bring together disparate parts of SCM, build and deployment into a single place. In practice, this flexibility means you’re free to add as many steps as you need in order to complete a deployment, in whichever order makes sense.
 
 Normally, a minimal pipeline consists of a SCM source, a CodeBuild project that builds one or more artefacts, and a CodeDeploy project that deploys those artefacts to an AWS service (such as EC2 or ECS).
 
-Given the flexibility of pipelines, and the fact that CodeBuild is basically a script runner, it's trivial to add another CodeBuild project in the appropriate place that runs database migrations just before a CodeDeploy project deploys your code to staging or production.
+Given the flexibility of pipelines, and the fact that CodeBuild is basically a script runner, it’s trivial to add another CodeBuild project in the appropriate place that runs database migrations just before a CodeDeploy project deploys your code to staging or production.
 
 ![The database migration stage of the pipeline](/img/resolverblog/database-migrations-stage.png)
 
@@ -23,7 +23,7 @@ On our project, we have added a second CodeBuild project with a very small scrip
 
 ## A one-off task for running migrations
 
-Since we're deploying to ECS using Fargate, we can make use of ECS task definitions to define a new task that will run our migrations for us. The reason for this is that the task will have all the context and access it requires to run the script, along with the latest version of the code that is about to be deployed.
+Since we’re deploying to ECS using Fargate, we can make use of ECS task definitions to define a new task that will run our migrations for us. The reason for this is that the task will have all the context and access it requires to run the script, along with the latest version of the code that is about to be deployed.
 
 We start by defining the task:
 
@@ -72,9 +72,9 @@ resource "aws_ecs_task_definition" "app_db_migration_task_definition" {
 
 We have two data sources that define the contents of the task definition. Then we have the task definition itself that uses this data along with IAM roles to create an ECS task that we can run on demand.
 
-The important thing to note here is that while this task definition is very similar to the one we use to run the actual app containers, this one is not part of an overarching ECS service. That means that it will not be run automatically, or restarted if it stops for any reason. This is desirable since we're essentially using it in a throwaway fashion.
+The important thing to note here is that while this task definition is very similar to the one we use to run the actual app containers, this one is not part of an overarching ECS service. That means that it will not be run automatically, or restarted if it stops for any reason. This is desirable since we’re essentially using it in a throwaway fashion.
 
-The actual content of the task definition should be very similar to whatever you have for your app containers, with one difference - the container definition will most probably have to override the default Docker command that you've defined in your Dockerfile:
+The actual content of the task definition should be very similar to whatever you have for your app containers, with one difference - the container definition will most probably have to override the default Docker command that you’ve defined in your Dockerfile:
 
 ```json
 "command": [
@@ -82,7 +82,7 @@ The actual content of the task definition should be very similar to whatever you
 ]
 ```
 
-This changes the default command to one that runs the database migrations. Once they're run, the command will exit and will in turn bring the container down with it.
+This changes the default command to one that runs the database migrations. Once they’re run, the command will exit and will in turn bring the container down with it.
 
 ## A CodeBuild project to run the one-off task
 
@@ -227,7 +227,7 @@ With this setup, you can always be sure that the database migrations have run be
 
 ## What to remember when creating database migrations
 
-You may have noticed that we run the database migrations before we deploy a new version of our application. We do this because the application will expect new or changed columns to be available when it starts running, and we don't want a gap between the application being deployed and the migrations completing.
+You may have noticed that we run the database migrations before we deploy a new version of our application. We do this because the application will expect new or changed columns to be available when it starts running, and we don’t want a gap between the application being deployed and the migrations completing.
 
 The astute amongst you will note, however, that this creates another issue - the database will change while the current version of the application is still running. In addition, if the deployment fails, this will become a permanent situation since the migrations are not rolled back.
 
