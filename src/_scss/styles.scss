@@ -70,14 +70,14 @@ main {
       margin-bottom: 0;
     }
   }
-
-  img {
-    width: 100%;
-  }
 }
 
 .content {
   grid-area: content;
+
+  img {
+    width: 100%;
+  }
 }
 
 .page-heading {
