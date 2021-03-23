@@ -104,4 +104,4 @@ Given we're using both Route 53 and CloudFront, we can make use of alias records
 
 Now we have all the puzzle pieces in place, the final user journey looks like this:
 
-Request —> Route 53 —> CloudFront —> S3 —> Redirect —> CloudFront —> User
+Request → Route 53 → CloudFront → S3 → Redirect → CloudFront → User
