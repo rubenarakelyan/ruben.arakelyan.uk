@@ -3,7 +3,7 @@ layout: md
 title: "Resolver Engineering blog archive"
 ---
 
-* Setting up VPC peering
+* [Setting up VPC peering](/archive/resolverblog/setting-up-vpc-peering/)
 * [Cross-region deployments with CodePipeline](/archive/resolverblog/cross-region-deployments-with-codepipeline/)
 * [Triggering AWS ECS deployments via GitHub, CodePipeline and ECR](/archive/resolverblog/triggering-aws-ecs-deployments-via-github-codepipeline-and-ecr/)
 * [Adding cron jobs with error recovery to AWS using Lambda, Step Functions and EventBridge](/archive/resolverblog/adding-cron-jobs-with-error-recovery-to-aws-using-lambda-step-functions-and-eventbridge/)
