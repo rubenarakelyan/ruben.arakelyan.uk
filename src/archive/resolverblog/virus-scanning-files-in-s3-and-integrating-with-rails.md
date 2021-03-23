@@ -176,7 +176,7 @@ For these reasons, we keep infected files in our S3 bucket, but we prevent them 
 }
 ```
 
-In a [previous blog post](https://ruben.arakelyan.uk/archive/resolverblog/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), we discussed setting up an S3 bucket policy for our assets bucket (where we store uploaded files) to allow CloudFront to serve these files, authenticating itself with an origin access identity (OAI).
+In a [previous blog post](/archive/resolverblog/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), we discussed setting up an S3 bucket policy for our assets bucket (where we store uploaded files) to allow CloudFront to serve these files, authenticating itself with an origin access identity (OAI).
 
 We now add a condition to that policy, which only allows access by CloudFront if the virus scan status of a file is "clean". This means that S3 will deny access to any files that have either not yet been scanned, or have been marked as infected.
 

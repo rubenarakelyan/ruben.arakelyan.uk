@@ -3,7 +3,7 @@ layout: md
 title: "CI using GitHub and AWS CodeBuild"
 ---
 
-[Last time](https://ruben.arakelyan.uk/archive/resolverblog/sending-slack-alerts-to-approve-codepipeline-deployments/), we mentioned CI as one of things that we try to automate as much as possible. This time, we'll go through more details about our CI setup and how it relates to our deployment pipeline.
+[Last time](/archive/resolverblog/sending-slack-alerts-to-approve-codepipeline-deployments/), we mentioned CI as one of things that we try to automate as much as possible. This time, we'll go through more details about our CI setup and how it relates to our deployment pipeline.
 
 ## Setting up the CodeBuild project
 
@@ -49,7 +49,7 @@ resource "aws_codebuild_project" "codebuild" {
 }
 ```
 
-This is a similar setup to our [one-off Fargate containers](https://ruben.arakelyan.uk/archive/resolverblog/running-database-migrations-on-deployment-for-fargate-containers/) for running database migrations, which also runs in CodeBuild.
+This is a similar setup to our [one-off Fargate containers](/archive/resolverblog/running-database-migrations-on-deployment-for-fargate-containers/) for running database migrations, which also runs in CodeBuild.
 
 We get the CodeBuild spec (which we'll go into next), and then set up the project. The project setup itself is very simple - we just give CodeBuild our GitHub repository, and tell it to run our project inside the `docker-19.03-dind` Docker container.
 

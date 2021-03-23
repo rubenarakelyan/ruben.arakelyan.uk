@@ -3,7 +3,7 @@ layout: md
 title: "Cross-region deployments with CodePipeline"
 ---
 
-Last time, we looked at [building a deployment pipeline using CodePipeline](https://ruben.arakelyan.uk/archive/resolverblog/triggering-aws-ecs-deployments-via-github-codepipeline-and-ecr/).
+Last time, we looked at [building a deployment pipeline using CodePipeline](/archive/resolverblog/triggering-aws-ecs-deployments-via-github-codepipeline-and-ecr/).
 
 Given the increasing number of countries that are implementing data residency policies, we now need to be able to deploy a copy of our application in a different region along with its database and connected services at the same time as in the main region (London `eu-west-2` in this case).
 
