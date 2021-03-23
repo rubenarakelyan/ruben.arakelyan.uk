@@ -106,3 +106,5 @@ resource "aws_cloudwatch_event_target" "background_jobs_step_function_target" {
 There are two parts to setting up a schedule. First, we have the event rule which defines the actual schedule. In this example, we’ll run the Step Function once a day at 12:05 am. Second, we have the event target which defines what EventBridge should run. In this case, we’re providing the ARN of the Step Function we set up earlier.
 
 Bringing it all together, we have a combination of EventBridge, Step Functions and Lambda that will make web hook calls to our application on a schedule and handle errors and retries. This is a great example of how a number of AWS services can be chained together to make something new and better.
+
+> This blog post was first published on 15 February 2021 at https://engineering.resolvergroup.com/2021/02/adding-cron-jobs-with-error-recovery-to-aws-using-lambda-step-functions-and-eventbridge/.

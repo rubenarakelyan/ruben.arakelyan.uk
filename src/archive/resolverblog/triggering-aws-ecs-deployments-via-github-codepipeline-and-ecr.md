@@ -492,3 +492,5 @@ Our pipeline starts by connecting to a GitHub repository using a CodeStar connec
 At this point, we have an approval step that means a developer needs to log in to the AWS Management Console and click a button to either approve or reject the progression of the image to our production environment.
 
 With this, we now have a fully-featured deployment pipeline that needs only light-touch interaction from a developer to deploy all the way to production.
+
+> This blog post was first published on 1 March 2021 at https://engineering.resolvergroup.com/2021/03/triggering-aws-ecs-deployments-via-github-codepipeline-and-ecr/.

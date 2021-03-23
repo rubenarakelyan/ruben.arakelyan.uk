@@ -12,3 +12,5 @@ Over the course of building these products, we have developed our ways of workin
 This blog is our way of giving back to the developer community at large by writing about these things and more. A lot of the posts will be technical in nature and centered around a single product, feature or issue. But we’ll also strive to bring you the voices of our engineering team in other ways by them writing about their experiences of working at Resolver, their backgrounds, their development journeys and more.
 
 We hope you enjoy reading our posts and find them helpful and useful.
+
+> This blog post was first published on 21 May 2020 at https://engineering.resolvergroup.com/2020/05/a-peek-into-the-world-of-resolver-engineering/.

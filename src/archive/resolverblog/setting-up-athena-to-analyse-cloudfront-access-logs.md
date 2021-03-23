@@ -166,3 +166,5 @@ We now finally have all the bits we need to be able to query our logs. So we jus
 Here we’ve run a simple query to get the first 10 log entries. You can see that it took about 1.5 seconds and scanned about 1.67MB of data. These statistics are used to calculate how much you pay for the query.
 
 Now everything’s set up, and we can run queries of any complexity to answer a particular question about visitors to our app quickly and easily.
+
+> This blog post was first published on 14 December 2020 at https://engineering.resolvergroup.com/2020/12/setting-up-athena-to-analyse-cloudfront-access-logs/.

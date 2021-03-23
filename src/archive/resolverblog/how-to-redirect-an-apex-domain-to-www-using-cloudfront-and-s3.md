@@ -105,3 +105,5 @@ Given we’re using both Route 53 and CloudFront, we can make use of alias recor
 Now we have all the puzzle pieces in place, the final user journey looks like this:
 
 Request → Route 53 → CloudFront → S3 → Redirect → CloudFront → User
+
+> This blog post was first published on 8 June 2020 at https://engineering.resolvergroup.com/2020/06/how-to-redirect-an-apex-domain-to-www-using-cloudfront-and-s3/.

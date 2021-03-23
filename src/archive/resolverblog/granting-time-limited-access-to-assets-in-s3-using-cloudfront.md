@@ -196,3 +196,5 @@ The given content type is returned by S3 as an HTTP header with the file to allo
 Note as per the comment that you must ensure the entire URL is URL encoded wherever needed as otherwise, the signed URL will not match and no content will be returned.
 
 We can now call this method throughout our application to get a time-limited URL that we can present to users.
+
+> This blog post was first published on 6 July 2020 at https://engineering.resolvergroup.com/2020/07/granting-time-limited-access-to-assets-in-s3-using-cloudfront/.

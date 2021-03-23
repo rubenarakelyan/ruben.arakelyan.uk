@@ -84,3 +84,5 @@ resource "aws_route" "vpc_peering_data_team_route_requester_private" {
 This route says that any traffic with a destination of `10.0.0.0/16` (the CIDR of the data team’s VPC) should be routed over the peering connection. Again, there will be an equivalent route on the opposite side to route traffic intended for our VPC’s CIDR across the same peering connection.
 
 We now have a fully functioning peering connection which allows the data team to access our anonymised database across the peering connection using a DNS name.
+
+> This blog post was first published on 29 March 2021 at https://engineering.resolvergroup.com/2021/03/setting-up-vpc-peering/.
