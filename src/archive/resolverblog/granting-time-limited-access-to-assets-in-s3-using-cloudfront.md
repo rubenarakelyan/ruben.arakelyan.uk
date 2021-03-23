@@ -144,7 +144,7 @@ The important things to note are:
 
 ## The Route 53 DNS record
 
-As always, we need a DNS record for `[assets.example.com](http://assets.example.com)` that points it to the CloudFront distribution.
+As always, we need a DNS record for [assets.example.com](http://assets.example.com) that points it to the CloudFront distribution.
 
 ```ruby
 resource "aws_route53_record" "cloudfront_assets_proxy_service_record" {
