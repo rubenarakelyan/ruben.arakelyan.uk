@@ -142,6 +142,6 @@ The SNS role is similar to the Lambda role and just allows it to write logs to C
 
 To test this out, kick-off your CodePipeline and wait for it to reach the manual approval step. If everything's worked as intended, you should see a message like the one below show up in the Slack channel you defined in the Lambda function earlier:
 
-![](/img/resolverblog/slack-message.png)
+![A Slack message sent by the Lambda function with a link to approve or reject a production deployment](/img/resolverblog/slack-message.png)
 
 If you don't see the message above, both Lambda and SNS send their logs to CloudWatch, so check there for any tell-tale failure messages. These are commonly to do with missing permissions or incorrect Slack API configuration.

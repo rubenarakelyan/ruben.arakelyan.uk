@@ -17,7 +17,7 @@ Normally, a minimal pipeline consists of a SCM source, a CodeBuild project that 
 
 Given the flexibility of pipelines, and the fact that CodeBuild is basically a script runner, it's trivial to add another CodeBuild project in the appropriate place that runs database migrations just before a CodeDeploy project deploys your code to staging or production.
 
-![](/img/resolverblog/database-migrations-stage.png)
+![The database migration stage of the pipeline](/img/resolverblog/database-migrations-stage.png)
 
 On our project, we have added a second CodeBuild project with a very small script that runs a single command to migrate the database to the latest version.
 

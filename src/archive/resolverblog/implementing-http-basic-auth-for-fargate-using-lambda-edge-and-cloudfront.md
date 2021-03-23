@@ -139,6 +139,6 @@ The interesting part of the definition above is the `lambda_function_association
 
 That's it! Once that's all built, test it out by visiting the URL you're protecting. You should see a prompt similar to this:
 
-![](/img/resolverblog/http-basic-auth-request.png)
+![An HTTP Basic Auth credentials request dialog box in Mozilla Firefox](/img/resolverblog/http-basic-auth-request.png)
 
 Test it out by typing a random username and password, and you should be prompted again. Now, try the username and password you previously hardcoded into the Lambda@Edge function, and you'll see your site.

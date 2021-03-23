@@ -161,7 +161,7 @@ The fields are all the ones available in the CloudFront logs. We set the source 
 
 We now finally have all the bits we need to be able to query our logs. So we just need to go to the Athena console and run a sample query:
 
-![](/img/resolverblog/athena.png)
+![The Athena query editor with a sample SQL query and results](/img/resolverblog/athena.png)
 
 Here we've run a simple query to get the first 10 log entries. You can see that it took about 1.5 seconds and scanned about 1.67MB of data. These statistics are used to calculate how much you pay for the query.
 

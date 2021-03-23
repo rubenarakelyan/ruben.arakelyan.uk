@@ -96,7 +96,7 @@ Secondly, we add a `run_order` parameter to both actions, and they are both set 
 
 Applying this configuration results in the following on the pipeline details page in the AWS Management Console:
 
-![](/img/resolverblog/cross-region-deployment.png)
+![A cross-region deployment action in CodePipeline](/img/resolverblog/cross-region-deployment.png)
 
 We have two parallel actions, with the Singapore one displaying a small double-arrow icon denoting an action that is running in a region different to the one that contains the pipeline itself.
 
