@@ -78,6 +78,11 @@ main {
   img {
     width: 100%;
   }
+
+  blockquote {
+    border-left: 4px solid #acacac;
+    padding-left: 1rem;
+  }
 }
 
 .page-heading {
