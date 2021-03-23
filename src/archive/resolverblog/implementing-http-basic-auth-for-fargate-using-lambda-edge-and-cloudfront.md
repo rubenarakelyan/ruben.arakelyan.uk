@@ -90,7 +90,7 @@ One last thing to note is that we're creating this function in the `us-east-1` A
 
 ## Linking the Lambda@Edge function to the CloudFront distribution
 
-Now that we have a Lambda@Edge function, we need to tell our CloudFront distribution to use it for each request. In a [previous blog post](https://engineering.resolvergroup.com/2020/07/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), I showed a sample CloudFront distribution definition for assets. We'll use something similar here and add in a link to the Lambda@Edge function:
+Now that we have a Lambda@Edge function, we need to tell our CloudFront distribution to use it for each request. In a [previous blog post](https://ruben.arakelyan.uk/archive/resolverblog/granting-time-limited-access-to-assets-in-s3-using-cloudfront/), I showed a sample CloudFront distribution definition for assets. We'll use something similar here and add in a link to the Lambda@Edge function:
 
 ```ruby
 resource "aws_cloudfront_distribution" "cloudfront_cdn" {
