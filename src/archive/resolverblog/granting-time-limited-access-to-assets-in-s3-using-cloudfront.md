@@ -144,7 +144,7 @@ The important things to note are:
 
 ## The Route 53 DNS record
 
-As always, we need a DNS record for [assets.example.com](http://assets.example.com) that points it to the CloudFront distribution.
+As always, we need a DNS record for assets.example.com that points it to the CloudFront distribution.
 
 ```ruby
 resource "aws_route53_record" "cloudfront_assets_proxy_service_record" {
@@ -197,4 +197,4 @@ Note as per the comment that you must ensure the entire URL is URL encoded where
 
 We can now call this method throughout our application to get a time-limited URL that we can present to users.
 
-> This blog post was first published on 6 July 2020 at https://engineering.resolvergroup.com/2020/07/granting-time-limited-access-to-assets-in-s3-using-cloudfront/.
+> This blog post was first published on 6 July 2020 at <https://engineering.resolvergroup.com/2020/07/granting-time-limited-access-to-assets-in-s3-using-cloudfront/>.

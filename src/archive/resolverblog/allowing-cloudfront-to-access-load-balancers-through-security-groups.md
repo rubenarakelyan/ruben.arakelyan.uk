@@ -112,4 +112,4 @@ Here we create a Security Group per chunk, and feed the chunk into an ingress ru
 
 **Please note, however, that CloudFront IP addresses change every now and then. At the moment, there doesn’t seem to be a better way of restricting access than running this configuration every now and then to refresh the list of IP addresses allowed access.**
 
-> This blog post was first published on 1 February 2021 at https://engineering.resolvergroup.com/2021/02/allowing-cloudfront-to-access-load-balancers-through-security-groups/.
+> This blog post was first published on 1 February 2021 at <https://engineering.resolvergroup.com/2021/02/allowing-cloudfront-to-access-load-balancers-through-security-groups/>.

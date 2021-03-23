@@ -107,4 +107,4 @@ There are two parts to setting up a schedule. First, we have the event rule whic
 
 Bringing it all together, we have a combination of EventBridge, Step Functions and Lambda that will make web hook calls to our application on a schedule and handle errors and retries. This is a great example of how a number of AWS services can be chained together to make something new and better.
 
-> This blog post was first published on 15 February 2021 at https://engineering.resolvergroup.com/2021/02/adding-cron-jobs-with-error-recovery-to-aws-using-lambda-step-functions-and-eventbridge/.
+> This blog post was first published on 15 February 2021 at <https://engineering.resolvergroup.com/2021/02/adding-cron-jobs-with-error-recovery-to-aws-using-lambda-step-functions-and-eventbridge/>.

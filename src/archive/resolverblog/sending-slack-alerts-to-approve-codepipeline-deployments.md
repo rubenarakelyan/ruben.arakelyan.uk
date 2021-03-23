@@ -146,4 +146,4 @@ To test this out, kick-off your CodePipeline and wait for it to reach the manual
 
 If you don’t see the message above, both Lambda and SNS send their logs to CloudWatch, so check there for any tell-tale failure messages. These are commonly to do with missing permissions or incorrect Slack API configuration.
 
-> This blog post was first published on 28 September 2020 at https://engineering.resolvergroup.com/2020/09/sending-slack-alerts-to-approve-codepipeline-deployments/.
+> This blog post was first published on 28 September 2020 at <https://engineering.resolvergroup.com/2020/09/sending-slack-alerts-to-approve-codepipeline-deployments/>.

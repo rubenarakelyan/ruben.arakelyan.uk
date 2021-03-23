@@ -13,4 +13,4 @@ This blog is our way of giving back to the developer community at large by writi
 
 We hope you enjoy reading our posts and find them helpful and useful.
 
-> This blog post was first published on 21 May 2020 at https://engineering.resolvergroup.com/2020/05/a-peek-into-the-world-of-resolver-engineering/.
+> This blog post was first published on 21 May 2020 at <https://engineering.resolvergroup.com/2020/05/a-peek-into-the-world-of-resolver-engineering/>.

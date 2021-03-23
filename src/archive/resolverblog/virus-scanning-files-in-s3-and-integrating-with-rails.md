@@ -198,4 +198,4 @@ However, the issue with this approach is that as the number of files in the buck
 
 This is an area we are still investigating, and hopefully in the future we’ll be able to come up with a solution that balances the requirement to detect infected files with the requirement to not add extra unnecessary infrastructure cost.
 
-> This blog post was first published on 16 November 2020 at https://engineering.resolvergroup.com/2020/11/virus-scanning-files-in-s3-and-integrating-with-rails/.
+> This blog post was first published on 16 November 2020 at <https://engineering.resolvergroup.com/2020/11/virus-scanning-files-in-s3-and-integrating-with-rails/>.

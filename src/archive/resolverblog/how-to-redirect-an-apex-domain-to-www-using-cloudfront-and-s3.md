@@ -9,9 +9,9 @@ A common issue for developers and operations staff when it comes to domain names
 
 At Resolver, we use AWS for the majority of our infrastructure, and we generally have staging and production environments for each product or service we build. We use subdomains as namespaces to separate the environments whilst providing similar URLs for each.
 
-As an example, for a hypothetical product hosted at example.com, the apex domain (example.com) is effectively the namespace for our production environment, whilst the staging subdomain (staging.example.com) is the namespace for our staging environment. Given that we will be using subdomains (such as [app.example.com](http://app.example.com) or [app.staging.example.com](http://app.staging.example.com) for our web app), it makes sense to also have a subdomain for the main site itself, which conveniently can be www (as in [www.example.com](http://www.example.com) or www.staging.example.com).
+As an example, for a hypothetical product hosted at example.com, the apex domain (example.com) is effectively the namespace for our production environment, whilst the staging subdomain (staging.example.com) is the namespace for our staging environment. Given that we will be using subdomains (such as app.example.com or app.staging.example.com for our web app), it makes sense to also have a subdomain for the main site itself, which conveniently can be www (as in www.example.com or www.staging.example.com).
 
-For the staging environment, this is fine since we don’t expect anyone to be visiting staging.[example.com](http://example.com), but it is a reasonable assumption that some people will try to visit example.com, and without a redirect in place, they’ll be confused about why they can’t access the site.
+For the staging environment, this is fine since we don’t expect anyone to be visiting staging.example.com, but it is a reasonable assumption that some people will try to visit example.com, and without a redirect in place, they’ll be confused about why they can’t access the site.
 
 # Redirecting at the CDN level
 
@@ -76,13 +76,13 @@ resource "aws_cloudfront_distribution" "apex_domain_redirect_cloudfront_cdn" {
 
 Even though there is a dedicated CloudFront origin type for S3 buckets, that is only designed for when you’re serving files from that bucket. Here, we’re using the website hosting capability of S3, which means we need to use the custom origin configuration instead.
 
-We set the origin to the website endpoint of our S3 bucket (which looks something like http://example.com.[s3-website.eu-west-2.amazonaws.com](http://s3-website.eu-west-2.amazonaws.com/)) and we configure it as HTTP-only (S3 website endpoints don’t support HTTPS, but you can terminate TLS in CloudFront by configuring a certificate in the distribution).
+We set the origin to the website endpoint of our S3 bucket (which looks something like http://example.com.s3-website.eu-west-2.amazonaws.com) and we configure it as HTTP-only (S3 website endpoints don’t support HTTPS, but you can terminate TLS in CloudFront by configuring a certificate in the distribution).
 
 At this point, we have our CDN (accessible at something-random.cloudfront.net), which sends all requests to S3, which replies with a redirect to www.example.com.
 
 ## The Route 53 DNS record
 
-Finally, we need to add a DNS record for [example.com](http://example.com) that points it to the CloudFront distribution to complete the setup and allow the apex domain to redirect to the www subdomain.
+Finally, we need to add a DNS record for example.com that points it to the CloudFront distribution to complete the setup and allow the apex domain to redirect to the www subdomain.
 
 ```ruby
 resource "aws_route53_record" "apex_domain_redirect_cloudfront_cdn_service_record_ipv4" {
@@ -106,4 +106,4 @@ Now we have all the puzzle pieces in place, the final user journey looks like th
 
 Request → Route 53 → CloudFront → S3 → Redirect → CloudFront → User
 
-> This blog post was first published on 8 June 2020 at https://engineering.resolvergroup.com/2020/06/how-to-redirect-an-apex-domain-to-www-using-cloudfront-and-s3/.
+> This blog post was first published on 8 June 2020 at <https://engineering.resolvergroup.com/2020/06/how-to-redirect-an-apex-domain-to-www-using-cloudfront-and-s3/>.

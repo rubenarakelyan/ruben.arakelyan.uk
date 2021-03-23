@@ -239,4 +239,4 @@ For this reason, as well as being best practice, it is always advisable to creat
 
 By following the steps above, you can be sure that even if your deployment fails, your application will keep running.
 
-> This blog post was first published on 14 September 2020 at https://engineering.resolvergroup.com/2020/09/running-database-migrations-on-deployment-for-fargate-containers/.
+> This blog post was first published on 14 September 2020 at <https://engineering.resolvergroup.com/2020/09/running-database-migrations-on-deployment-for-fargate-containers/>.

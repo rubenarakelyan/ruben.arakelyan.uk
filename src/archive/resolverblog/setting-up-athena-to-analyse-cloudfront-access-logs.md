@@ -167,4 +167,4 @@ Here we’ve run a simple query to get the first 10 log entries. You can see tha
 
 Now everything’s set up, and we can run queries of any complexity to answer a particular question about visitors to our app quickly and easily.
 
-> This blog post was first published on 14 December 2020 at https://engineering.resolvergroup.com/2020/12/setting-up-athena-to-analyse-cloudfront-access-logs/.
+> This blog post was first published on 14 December 2020 at <https://engineering.resolvergroup.com/2020/12/setting-up-athena-to-analyse-cloudfront-access-logs/>.

@@ -85,4 +85,4 @@ This route says that any traffic with a destination of `10.0.0.0/16` (the CIDR o
 
 We now have a fully functioning peering connection which allows the data team to access our anonymised database across the peering connection using a DNS name.
 
-> This blog post was first published on 29 March 2021 at https://engineering.resolvergroup.com/2021/03/setting-up-vpc-peering/.
+> This blog post was first published on 29 March 2021 at <https://engineering.resolvergroup.com/2021/03/setting-up-vpc-peering/>.

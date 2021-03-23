@@ -143,4 +143,4 @@ That’s it! Once that’s all built, test it out by visiting the URL you’re p
 
 Test it out by typing a random username and password, and you should be prompted again. Now, try the username and password you previously hardcoded into the Lambda@Edge function, and you’ll see your site.
 
-> This blog post was first published on 17 August 2020 at https://engineering.resolvergroup.com/2020/08/implementing-http-basic-auth-for-fargate-using-lambdaedge-and-cloudfront/.
+> This blog post was first published on 17 August 2020 at <https://engineering.resolvergroup.com/2020/08/implementing-http-basic-auth-for-fargate-using-lambdaedge-and-cloudfront/>.

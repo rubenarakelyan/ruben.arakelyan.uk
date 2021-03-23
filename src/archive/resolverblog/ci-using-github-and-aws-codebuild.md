@@ -179,4 +179,4 @@ Here, we set up a webhook that is triggered on every push to our repo, apart fro
 
 Once the webhook is set up, not only will every push trigger the project, but the results will also be reported back to the commit/PR. Any exit from the buildspec with an error code other than zero will report back a failure. The result also links back to the project output for easier debugging.
 
-> This blog post was first published on 19 October 2020 at https://engineering.resolvergroup.com/2020/10/ci-using-github-and-aws-codebuild/.
+> This blog post was first published on 19 October 2020 at <https://engineering.resolvergroup.com/2020/10/ci-using-github-and-aws-codebuild/>.

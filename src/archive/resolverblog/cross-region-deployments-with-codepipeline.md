@@ -102,4 +102,4 @@ We have two parallel actions, with the Singapore one displaying a small double-a
 
 We can add any number of similar parallel actions deploying to different regions at the same time for a truly global application.
 
-> This blog post was first published on 15 March 2021 at https://engineering.resolvergroup.com/2021/03/cross-region-deployments-with-codepipeline/.
+> This blog post was first published on 15 March 2021 at <https://engineering.resolvergroup.com/2021/03/cross-region-deployments-with-codepipeline/>.
