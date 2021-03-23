@@ -60,7 +60,7 @@ nav {
 main {
   grid-area: main;
   display: grid;
-  grid: "content sidebar" auto / 1fr 0.3fr;
+  grid: "content sidebar" auto / minmax(0, 1fr) 0.3fr;
   font-size: 1.5rem;
 
   section section {
