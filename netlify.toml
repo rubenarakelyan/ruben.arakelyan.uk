@@ -115,9 +115,12 @@
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Content-Security-Policy = "default-src 'self'; font-src data:; style-src 'self' https://cloud.typography.com; report-uri https://arakelyan.report-uri.com/r/d/csp/enforce"
+    Cross-Origin-Embedder-Policy-Report-Only = "require-corp; report-to='default'"
+    Cross-Origin-Opener-Policy-Report-Only = "same-origin; report-to='default'"
+    Cross-Origin-Resource-Policy = "same-site"
     Expect-CT = "max-age=86400, enforce, report-uri=\"https://arakelyan.report-uri.com/r/d/ct/enforce\""
     NEL = "{\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}"
-    Permissions-Policy = "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), layout-animations=(), legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), oversized-images=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), wake-lock=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()"
+    Permissions-Policy = "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), layout-animations=(), legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), oversized-images=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), wake-lock=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Report-To = "{\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://arakelyan.report-uri.com/a/d/g\"}],\"include_subdomains\":true}"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
