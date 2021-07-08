@@ -115,8 +115,8 @@
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Content-Security-Policy = "default-src 'self'; font-src data:; style-src 'self' https://cloud.typography.com; report-uri https://arakelyan.report-uri.com/r/d/csp/enforce"
-    Cross-Origin-Embedder-Policy-Report-Only = "require-corp; report-to='default'"
-    Cross-Origin-Opener-Policy-Report-Only = "same-origin; report-to='default'"
+    Cross-Origin-Embedder-Policy = "require-corp; report-to=\"default\""
+    Cross-Origin-Opener-Policy = "same-origin; report-to=\"default\""
     Cross-Origin-Resource-Policy = "same-site"
     Expect-CT = "max-age=86400, enforce, report-uri=\"https://arakelyan.report-uri.com/r/d/ct/enforce\""
     NEL = "{\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}"
